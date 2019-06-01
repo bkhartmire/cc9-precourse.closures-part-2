@@ -11,24 +11,23 @@ function randomInteger(n) {
 function gameGenerator(upperBound) {
   let winner = randomInteger(upperBound);
   let guesses = 0;
-  function reset() {
-    winner = randomInteger(upperBound)
-    guesses = 0;
-  }
-  function giveUp() {
-    let result = winner;
-    reset();
-    return result;
-  }
-  function guess(num) {
-    guesses++;
-    if (num === winner) return true;
-    else return false;
-  }
-  function numGuesses(){
-    return guesses;
-  }
-  return {reset, giveUp, guess, numGuesses};
+  return {
+    reset: () => {
+      winner = randomInteger(upperBound)
+      guesses = 0;
+    }, 
+    giveUp: () => {
+      let result = winner;
+      reset();
+      return result;
+    },
+    guess: (num) => {
+      guesses++;
+      if (num === winner) return true;
+      else return false;
+    },
+    numGuesses: () => {return guesses;}
+  };
 }
 
 function accountGenerator(initial) {
