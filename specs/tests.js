@@ -23,12 +23,34 @@ describe("gameGenerator", () => {
 
   it("should have a reset method", () => {
     // How do you test for this?
-    expect(false).toBeTruthy();
+    const game = gameGenerator(4);
+    expect(typeof game.reset === "function").toBeTruthy();
   });
 
-  it("create your own test", () => {
-    expect(false).toBeTruthy();
+  it("should return true or false depending on your guess", () => {
+    const game = gameGenerator(0);
+    expect(game.guess(5)).toBe(false);
+    expect(game.guess(1)).toBe(false);
+    expect(game.guess(3)).toBe(false);
+    expect(game.guess(0)).toEqual(true);
   });
+
+  it("should be able to return the number of guesses", () => {
+    const game = gameGenerator(0);
+    game.guess(5);
+    game.guess(3);
+    game.guess(2);
+    expect(game.numGuesses()).toBe(3);
+  });
+  it("should reset the number of the guesses", () => {
+    const game = gameGenerator(0);
+    game.guess(5);
+    game.guess(3);
+    game.guess(2);
+    expect(game.numGuesses()).toBe(3);
+    game.reset();
+    expect(game.numGuesses()).toBe(0);
+  })
 });
 
 describe("accountGenerator", () => {
