@@ -73,6 +73,25 @@ function accountGenerator(initial) {
     transactionHistory: function(num) {
       if (num < transactions.length) {return transactions.slice(-num);}
       else {return transactions;}
+    },
+    averageTransaction: function() {
+      let withdrawalsCount = 0;
+      let withdrawalsAmount = 0;
+      let depositsCount = 0;
+      let depositsAmount = 0;
+      for(let i = 0; i < transactions.length; i++) {
+        if (transactions[i]["type"] === "withdrawal" && transactions[i]["status"] === "approved") {
+          withdrawalsCount++;
+          withdrawalsAmount += transactions[i]["amount"];
+        } else if (transactions[i]["type"] == "deposit") {
+          depositsCount++;
+          depositsAmount += transactions[i]["amount"];
+        }
+      }
+      return {
+        deposit: depositsAmount/depositsCount,
+        withdrawal: withdrawalsAmount/withdrawalsCount
+      }
     }
   };
 }
