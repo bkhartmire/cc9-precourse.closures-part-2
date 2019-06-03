@@ -18,7 +18,8 @@ function gameGenerator(upperBound) {
     }, 
     giveUp: () => {
       let result = winner;
-      reset();
+      winner = randomInteger(upperBound)
+      guesses = 0;
       return result;
     },
     guess: (num) => {
@@ -26,7 +27,7 @@ function gameGenerator(upperBound) {
       if (num === winner) return true;
       else return false;
     },
-    numGuesses: () => {return guesses;}
+    numberGuesses: () => {return guesses;}
   };
 }
 
@@ -67,6 +68,10 @@ function accountGenerator(initial) {
     getBalance: function() {
       return balance;
     },
+    transactionHistory(num) {
+      //dummy code
+      return num
+    }
 
   };
 }

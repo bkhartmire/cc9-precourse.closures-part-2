@@ -40,16 +40,25 @@ describe("gameGenerator", () => {
     game.guess(5);
     game.guess(3);
     game.guess(2);
-    expect(game.numGuesses()).toBe(3);
+    expect(game.numberGuesses()).toBe(3);
   });
   it("should reset the number of the guesses", () => {
     const game = gameGenerator(0);
     game.guess(5);
     game.guess(3);
     game.guess(2);
-    expect(game.numGuesses()).toBe(3);
+    expect(game.numberGuesses()).toBe(3);
     game.reset();
-    expect(game.numGuesses()).toBe(0);
+    expect(game.numberGuesses()).toBe(0);
+  });
+  it("should have a giveUp method that returns the answer and resets the game", () => {
+    const game = gameGenerator(0);
+    game.guess(5);
+    game.guess(3);
+    expect(game.numberGuesses()).toBe(2);
+    const result = game.giveUp();
+    expect(game.numberGuesses()).toBe(0);
+    expect(result).toEqual(0);
   })
 });
 
@@ -77,7 +86,7 @@ describe("accountGenerator", () => {
       type: "withdrawal",
       amount: 100,
       before: 50,
-      after: 50,
+      after: 50, 
       status: "denied"
     };
     expect(account.withdraw(100)).toEqual(expectedResult);
