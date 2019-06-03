@@ -33,9 +33,7 @@ function gameGenerator(upperBound) {
 
 function accountGenerator(initial) {
   let balance = initial;
-  let withdrawalsCount = 0;
-  let depositsCount = 0;
-
+  let transactions = [];
   return {
     withdraw: function(amount) {
       let status;
@@ -43,9 +41,8 @@ function accountGenerator(initial) {
       if (balance - amount >= 0) {
         balance = balance - amount;
         status = "approved";
-        withdrawalsCount++;
       } else {status = "denied";}
-      return {
+      let result = {
         type: "withdrawal",
         amount: amount,
         before: balanceBefore,
@@ -53,12 +50,13 @@ function accountGenerator(initial) {
         status: status,
         time: new Date(Date.now())
       }
+      transactions.push(result);
+      return result;
     },
     deposit: function(amount) {
       let balanceBefore = balance;
       balance = balance + amount;
-      depositsCount++;
-      return {
+      let result = {
         type: "deposit",
         amount: amount,
         before: balanceBefore,
@@ -66,14 +64,16 @@ function accountGenerator(initial) {
         status: "approved",
         time: new Date(Date.now())
       };
+      transactions.push(result);
+      return result;
     },
     getBalance: function() {
       return balance;
     },
-    transactionHistory(num) {
-      //dummy code
-      return num
+    transactionHistory: function(num) {
+      if (num < transactions.length) {return transactions.slice(-num);}
+      else {return transactions;}
+      
     }
-
   };
 }

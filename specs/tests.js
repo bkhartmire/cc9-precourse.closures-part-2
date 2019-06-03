@@ -105,7 +105,7 @@ describe("accountGenerator", () => {
       time: new Date(Date.now())
     };
     expect(account.deposit(50)).toEqual(expectedResult);
-  })
+  });
   it("should have a getBalance method that returns the current balance", () => {
     const account = accountGenerator(100);
     expect(account.getBalance()).toEqual(100);
@@ -115,5 +115,22 @@ describe("accountGenerator", () => {
     expect(account.getBalance()).toEqual(50);
     account.deposit(100);
     expect(account.getBalance()).toEqual(150);
+  });
+  it("should return a history of x most recent transactions", () => {
+    const account = accountGenerator(100);
+    const withdrawal1 = account.withdraw(20);
+    const deposit1 = account.deposit(500);
+    const deposit2 = account.deposit(100);
+    const withdrawal2 = account.withdraw(200);
+    expect(account.transactionHistory(2)).toEqual([deposit2, withdrawal2]);
+    expect(account.transactionHistory(3)).toEqual([deposit1, deposit2, withdrawal2]);
+  });
+  it("should return entire transaction history for input that exceeds number of transactions", () => {
+    const account = accountGenerator(100);
+    const withdrawal1 = account.withdraw(20);
+    const deposit1 = account.deposit(500);
+    const deposit2 = account.deposit(100);
+    const withdrawal2 = account.withdraw(200);
+    expect(account.transactionHistory(5)).toEqual([withdrawal1, deposit1, deposit2, withdrawal2]);
   })
 });
