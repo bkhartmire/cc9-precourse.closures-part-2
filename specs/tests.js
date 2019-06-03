@@ -59,7 +59,49 @@ describe("accountGenerator", () => {
     expect(typeof accountGenerator).toBe("function");
   });
 
-  it("should have some tests", () => {
-    expect(false).toBeTruthy();
+  it("should have a withdraw method that returns an object", () => {
+    const account = accountGenerator(100);
+    expect(typeof account.withdraw === "function").toBeTruthy();
+    const expectedResult = {
+      type: "withdrawal",
+      amount: 50,
+      before: 100,
+      after: 50,
+      status: "approved"
+    };
+    expect(account.withdraw(50)).toEqual(expectedResult);
   });
+  it("should deny withdrawals that exceed current balance", () => {
+    const account = accountGenerator(50);
+    const expectedResult = {
+      type: "withdrawal",
+      amount: 100,
+      before: 50,
+      after: 50,
+      status: "denied"
+    };
+    expect(account.withdraw(100)).toEqual(expectedResult);
+  });
+  it("should have a deposit method that returns an object", () => {
+    const account = accountGenerator(100);
+    expect(typeof account.deposit === "function").toBeTruthy();
+    const expectedResult = {
+      type: "deposit",
+      amount: 50,
+      before: 100,
+      after: 150,
+      status: "approved"
+    };
+    expect(account.deposit(50)).toEqual(expectedResult);
+  })
+  it("should have a getBalance method that returns the current balance", () => {
+    const account = accountGenerator(100);
+    expect(account.getBalance()).toEqual(100);
+    account.withdraw(50);
+    expect(account.getBalance()).toEqual(50);
+    account.withdraw(100);
+    expect(account.getBalance()).toEqual(50);
+    account.deposit(100);
+    expect(account.getBalance()).toEqual(150);
+  })
 });

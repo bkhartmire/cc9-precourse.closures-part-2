@@ -32,18 +32,41 @@ function gameGenerator(upperBound) {
 
 function accountGenerator(initial) {
   let balance = initial;
+  let withdrawalsCount = 0;
+  let depositsCount = 0;
 
   return {
     withdraw: function(amount) {
+      let status;
+      let balanceBefore = balance;
       if (balance - amount >= 0) {
         balance = balance - amount;
-        return `Here’s your money: $${amount}`;
+        status = "approved";
+        withdrawalsCount++;
+      } else {status = "denied";}
+      return {
+        type: "withdrawal",
+        amount: amount,
+        before: balanceBefore,
+        after: balance,
+        status: status
       }
-      return "Insufficient funds.";
     },
     deposit: function(amount) {
+      let balanceBefore = balance;
       balance = balance + amount;
-      return `Your balance is: $${balance}`;
-    }
+      depositsCount++;
+      return {
+        type: "deposit",
+        amount: amount,
+        before: balanceBefore,
+        after: balance,
+        status: "approved"
+      };
+    },
+    getBalance: function() {
+      return balance;
+    },
+
   };
 }
