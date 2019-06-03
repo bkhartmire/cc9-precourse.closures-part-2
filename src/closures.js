@@ -73,7 +73,6 @@ function accountGenerator(initial) {
     transactionHistory: function(num) {
       if (num < transactions.length) {return transactions.slice(-num);}
       else {return transactions;}
-      
     }
   };
 }

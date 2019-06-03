@@ -116,6 +116,10 @@ describe("accountGenerator", () => {
     account.deposit(100);
     expect(account.getBalance()).toEqual(150);
   });
+  it("should have a transactionHistory function", () => {
+    const account = accountGenerator(100);
+    expect(typeof account.transactionHistory === "function").toBeTruthy();
+  })
   it("should return a history of x most recent transactions", () => {
     const account = accountGenerator(100);
     const withdrawal1 = account.withdraw(20);
