@@ -50,7 +50,8 @@ function accountGenerator(initial) {
         amount: amount,
         before: balanceBefore,
         after: balance,
-        status: status
+        status: status,
+        time: new Date(Date.now())
       }
     },
     deposit: function(amount) {
@@ -62,7 +63,8 @@ function accountGenerator(initial) {
         amount: amount,
         before: balanceBefore,
         after: balance,
-        status: "approved"
+        status: "approved",
+        time: new Date(Date.now())
       };
     },
     getBalance: function() {

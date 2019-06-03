@@ -76,7 +76,8 @@ describe("accountGenerator", () => {
       amount: 50,
       before: 100,
       after: 50,
-      status: "approved"
+      status: "approved",
+      time: new Date(Date.now())
     };
     expect(account.withdraw(50)).toEqual(expectedResult);
   });
@@ -87,7 +88,8 @@ describe("accountGenerator", () => {
       amount: 100,
       before: 50,
       after: 50, 
-      status: "denied"
+      status: "denied",
+      time: new Date(Date.now())
     };
     expect(account.withdraw(100)).toEqual(expectedResult);
   });
@@ -99,7 +101,8 @@ describe("accountGenerator", () => {
       amount: 50,
       before: 100,
       after: 150,
-      status: "approved"
+      status: "approved",
+      time: new Date(Date.now())
     };
     expect(account.deposit(50)).toEqual(expectedResult);
   })
