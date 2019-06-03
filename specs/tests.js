@@ -136,5 +136,14 @@ describe("accountGenerator", () => {
     const deposit2 = account.deposit(100);
     const withdrawal2 = account.withdraw(200);
     expect(account.transactionHistory(5)).toEqual([withdrawal1, deposit1, deposit2, withdrawal2]);
+  });
+  it("should have averageTransaction method that returns average deposit and withdrawal amount", () => {
+    const account = accountGenerator(100);
+    account.withdraw(20);
+    account.deposit(500);
+    account.deposit(100);
+    account.withdraw(200);
+    const expected = {deposit: 300, withdrawal: 110};
+    expect(account.averageTransaction()).toEqual(expected);
   })
 });
